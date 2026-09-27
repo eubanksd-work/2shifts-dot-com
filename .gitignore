@@ -1,0 +1,8 @@
+# OS junk; the assets are edited on Windows and occasionally macOS
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# This repo is public and Pages serves the whole root. private/ holds the business
+# paperwork and working notes, and is its own private repository. See README.md.
+private/

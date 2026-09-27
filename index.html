@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Second Shift — automation for firms</title>
+<meta name="description" content="Second Shift builds sturdy automations for firms: intake, engagement letters, client folders, client updates. On the software you already own. Dallas, Texas.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Second Shift">
+<meta property="og:title" content="Second Shift">
+<meta property="og:description" content="Automation for firms, built on the tools you already own. 30-day pilot, no invoice.">
+<meta property="og:url" content="https://2shifts.com/">
+<meta property="og:image" content="https://2shifts.com/brand/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/svg+xml" href="brand/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="brand/icon-32.png">
+<link rel="icon" href="brand/favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="brand/apple-touch-icon.png">
+<style>
+  /* Self-hosted so no visitor request leaves this origin. Latin subsets, the same
+     bytes Google Fonts serves; Open Sans is the variable face and covers 400/500/600
+     from one file. Full-unicode originals are in design-system/fonts/. */
+  @font-face {
+    font-family: 'Libre Baskerville';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('fonts/libre-baskerville-latin-400.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: 'Libre Baskerville';
+    font-style: italic;
+    font-weight: 400;
+    font-display: swap;
+    src: url('fonts/libre-baskerville-latin-400-italic.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 300 800;
+    font-display: swap;
+    src: url('fonts/open-sans-latin-var.woff2') format('woff2');
+  }
+  :root {
+    --paper: #F5F1EA;
+    --ink: #1C1A17;
+    --muted: #4A463F;
+    --rule: #C9C2B6;
+    --accent: #2F4F3E;
+    --amber: #F2B35C;
+    --serif: 'Libre Baskerville', Georgia, 'Times New Roman', serif;
+    --sans: 'Open Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  a { color: var(--accent); }
+  a:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+  .wrap { width: min(1120px, 100% - 48px); margin-inline: auto; }
+  h1, h2, h3 { font-family: var(--serif); font-weight: 400; margin: 0; letter-spacing: -0.015em; }
+
+  /* Header */
+  header { border-bottom: 1px solid var(--ink); }
+  .nav { display: flex; align-items: center; gap: 24px 32px; padding: 26px 0; }
+  .brand { margin-right: auto; display: inline-flex; align-items: center; gap: 12px; font-family: var(--serif); font-weight: 400; font-size: 22px; color: var(--ink); text-decoration: none; }
+  .brand .mark { width: 34px; height: 34px; }
+  /* The filled half is drawn as a thick stroke that sweeps clockwise from 12 o'clock on first load:
+     the second shift coming on. The dot lights last. Plays once; shortened, not skipped, when the visitor prefers reduced motion. */
+  .mark-fill { stroke-dasharray: 62.832 125.664; stroke-dashoffset: 0; transform: rotate(-90deg); transform-origin: 50% 50%; transform-box: fill-box; }
+  .mark-dot { opacity: 1; }
+  .mark-fill { animation: sweep 900ms cubic-bezier(.4,0,.2,1) 150ms both; }
+  .mark-dot { transform-origin: 50% 50%; transform-box: fill-box; animation: light 400ms ease-out 950ms both; }
+  @keyframes sweep { from { stroke-dashoffset: 62.832; } to { stroke-dashoffset: 0; } }
+  @keyframes light { from { opacity: 0; transform: scale(.6); } to { opacity: 1; transform: scale(1); } }
+  @media (prefers-reduced-motion: reduce) {
+    .mark-fill { animation-duration: 300ms; animation-delay: 0ms; }
+    .mark-dot { animation-duration: 150ms; animation-delay: 300ms; }
+  }
+  .links { display: flex; align-items: center; gap: 32px; font-size: 15px; font-weight: 500; }
+  .links a { color: var(--ink); text-decoration: none; }
+  .links a:hover { text-decoration: underline; text-underline-offset: 4px; }
+  .pill { display: inline-flex; align-items: center; min-height: 44px; padding: 0 20px; border: 1.5px solid var(--ink); border-radius: 999px; color: var(--ink); text-decoration: none !important; }
+  .pill:hover { background: var(--ink); color: var(--paper); }
+
+  /* Hero */
+  .hero { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 1fr); gap: 48px; padding: clamp(64px, 9vw, 120px) 0 clamp(56px, 7vw, 100px); }
+  .hero h1 { font-size: clamp(34px, 4.8vw, 60px); line-height: 1.06; text-wrap: balance; letter-spacing: -0.01em; }
+  .hero h1 em { font-style: italic; color: var(--accent); }
+  .hero p { max-width: 600px; font-size: clamp(18px, 1.6vw, 20px); color: var(--muted); margin: 32px 0 0; }
+  .cta-row { display: flex; flex-wrap: wrap; align-items: center; gap: 20px 24px; margin-top: 32px; }
+  .btn { display: inline-flex; align-items: center; min-height: 52px; padding: 0 28px; border-radius: 999px; background: var(--ink); color: var(--paper); font-weight: 500; font-size: 16px; text-decoration: none; }
+  .btn:hover { background: var(--accent); }
+  .btn.light { background: var(--paper); color: var(--ink); }
+  .btn.light:hover { background: #fff; }
+  .cta-row span { font-size: 15px; color: var(--muted); }
+  .aside { align-self: end; border-left: 1px solid var(--rule); padding-left: 20px; font-size: 14px; color: var(--muted); }
+  .aside strong { display: block; color: var(--ink); font-weight: 600; margin-bottom: 6px; }
+
+  /* Services */
+  .section-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 24px; padding-bottom: 20px; border-bottom: 1px solid var(--ink); }
+  .section-head h2 { font-size: clamp(28px, 3vw, 36px); font-weight: 400; }
+  .section-head p { margin: 0; font-size: 15px; color: var(--muted); }
+  .row { display: grid; grid-template-columns: 220px minmax(0, 1fr) 260px; gap: 24px; padding: 28px 0; border-bottom: 1px solid var(--rule); }
+  .row:last-child { border-bottom: 1px solid var(--ink); }
+  .row h3 { font-size: 22px; font-weight: 400; }
+  .row p { margin: 0; color: var(--muted); }
+  .row .fit { font-size: 14px; }
+  .services { padding-bottom: clamp(56px, 7vw, 100px); }
+
+  /* Pilot */
+  .pilot { background: var(--ink); color: var(--paper); padding: clamp(56px, 7vw, 100px) 0; }
+  .pilot .wrap { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 64px; }
+  .pilot .kicker { font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 600; color: var(--rule); margin: 0 0 20px; }
+  .pilot h2 { font-size: clamp(30px, 3.4vw, 44px); line-height: 1.1; letter-spacing: -0.01em; }
+  .pilot .lede { color: var(--rule); margin: 20px 0 0; }
+  .steps { list-style: none; margin: 0; padding: 0; }
+  .steps li { display: flex; gap: 20px; padding: 0 0 22px; margin-bottom: 22px; border-bottom: 1px solid var(--muted); }
+  .steps li:last-child { border-bottom: 0; margin-bottom: 0; }
+  .steps .n { font-family: var(--serif); font-size: 22px; color: #9CC4B0; flex: 0 0 32px; line-height: 1.3; }
+  .steps strong { font-weight: 600; }
+  .pilot .btn { margin-top: 8px; }
+
+  /* About */
+  .about { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 48px; padding: clamp(56px, 7vw, 100px) 0; }
+  .about h2 { font-size: 30px; font-weight: 400; line-height: 1.2; }
+  .about p { margin: 0 0 18px; font-size: 18px; color: var(--muted); }
+  .about p:last-child { margin-bottom: 0; }
+
+  footer { border-top: 1px solid var(--ink); }
+  footer .wrap { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 12px 24px; padding: 32px 0; font-size: 14px; color: var(--muted); }
+  footer .legal { font-family: var(--serif); font-size: 15px; color: var(--ink); }
+  footer .meta { display: flex; flex-wrap: wrap; gap: 8px 32px; }
+  footer a { color: var(--muted); }
+
+  @media (max-width: 860px) {
+    .nav { flex-wrap: wrap; gap: 16px; padding-bottom: 0; }
+    .brand { font-size: 20px; }
+    .brand .mark { width: 30px; height: 30px; }
+    .links { order: 2; width: 100%; justify-content: space-between; gap: 16px; padding: 14px 0; border-top: 1px solid var(--rule); font-size: 14px; }
+    .pill { padding: 0 16px; font-size: 14px; }
+    .hero { grid-template-columns: 1fr; gap: 32px; }
+    .hero h1 br { display: none; }
+    .aside { border-left: 0; padding-left: 0; border-top: 1px solid var(--rule); padding-top: 16px; }
+    .row { grid-template-columns: 1fr; gap: 10px; }
+    .pilot .wrap, .about { grid-template-columns: 1fr; gap: 36px; }
+  }
+
+  /* Print. A firm's office manager is the likely person to print this, and on paper
+     the inverse pilot band is a full page of toner for no benefit, so it flips to
+     ink-on-white and keeps its shape with hairlines instead. Buttons and nav are
+     dropped, since nothing on paper is clickable. The pilot band's booking button is
+     the exception: it renders as plain text with its URL spelled out after it, so a
+     printed page still says where to book. The footer keeps the email address. */
+  @media print {
+    @page { margin: 16mm; }
+    html { scroll-behavior: auto; }
+    body { background: #fff; color: #000; font-size: 11pt; }
+    .wrap { width: 100%; }
+    .links, .pill, .hero .btn, .aside { display: none; }
+    .pilot .btn { display: inline; min-height: 0; margin: 16px 0 0; padding: 0;
+      background: none; color: #000; font-size: 11pt; text-decoration: none; }
+    .pilot .btn::after { content: ": " attr(href); }
+    header, footer { border-color: #000; }
+    .hero { padding: 0 0 24px; }
+    .hero h1 br { display: none; }
+    .pilot {
+      background: #fff;
+      color: #000;
+      padding: 24px 0;
+      border-top: 1px solid #000;
+      border-bottom: 1px solid #000;
+      break-inside: avoid;
+    }
+    .pilot .kicker, .pilot .lede { color: #444; }
+    .steps li { border-bottom: 1px solid #bbb; }
+    .steps .n { color: #000; }
+    .about, .services { break-inside: avoid; }
+    a { color: #000; text-decoration: underline; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top"><svg class="mark" viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="40" fill="none" stroke="currentColor" stroke-width="6"/><circle class="mark-fill" cx="50" cy="50" r="20" fill="none" stroke="currentColor" stroke-width="40"/><circle class="mark-dot" cx="50" cy="50" r="6" fill="var(--amber)"/></svg>Second Shift</a>
+    <nav class="links" aria-label="Site">
+      <a href="#services">Services</a>
+      <a href="#pilot">The pilot</a>
+      <a href="#about">About</a>
+    </nav>
+    <a class="pill" href="https://cal.com/2shifts/30min">Book a call</a>
+  </div>
+</header>
+
+<main id="top">
+  <section class="wrap hero">
+    <div>
+      <h1>Your firm runs&nbsp;on<br>paperwork. <em>It&nbsp;shouldn't.</em></h1>
+      <p>Second Shift builds sturdy automations for firms: the intake, the letters, the folders, the "just checking in" emails. On the software you already own, handed over so it's yours.</p>
+      <div class="cta-row">
+        <a class="btn" href="https://cal.com/2shifts/30min">Request a pilot</a>
+        <span>30 days, one process, no invoice</span>
+      </div>
+    </div>
+    <aside class="aside">
+      <strong>Currently taking</strong>
+      Two pilot firms this quarter, Dallas and surrounding counties.
+    </aside>
+  </section>
+
+  <section id="services" class="wrap services">
+    <div class="section-head">
+      <h2>Services</h2>
+      <p>Each one is a bounded project, not a subscription.</p>
+    </div>
+    <div class="row">
+      <h3>Intake</h3>
+      <p>A form on your site becomes a contact, a conflict check, an open matter, a client folder, and a booked consultation. The chain that takes twenty minutes now runs in seconds.</p>
+      <p class="fit">Typical fit: any firm taking more than a few new matters a week.</p>
+    </div>
+    <div class="row">
+      <h3>Documents</h3>
+      <p>Engagement letters, estate plan packages, standard filings, drafted from your own templates using answers the client already gave you. Review, sign, done.</p>
+      <p class="fit">Typical fit: estate planning, family law, anyone with a template folder.</p>
+    </div>
+    <div class="row">
+      <h3>Client updates</h3>
+      <p>When a matter changes stage, the client hears about it without anyone drafting an email. Fewer status calls, calmer clients, more time for the actual work.</p>
+      <p class="fit">Typical fit: personal injury, litigation, immigration.</p>
+    </div>
+    <div class="row">
+      <h3>Something else</h3>
+      <p>If there's a task someone at your firm does the same way every week, it probably qualifies. Describe it and I'll tell you honestly whether it's worth automating.</p>
+      <p class="fit">Typical fit: billing prep, deadline calendars, court date reminders.</p>
+    </div>
+  </section>
+
+  <section id="pilot" class="pilot">
+    <div class="wrap">
+      <div>
+        <p class="kicker">The pilot</p>
+        <h2>The first few are for the references—no invoice.</h2>
+        <p class="lede">Here's the whole arrangement. No other fine print.</p>
+      </div>
+      <div>
+        <ol class="steps">
+          <li><span class="n">1</span><span><strong>One 30-minute call</strong> to see how the process works today.</span></li>
+          <li><span class="n">2</span><span><strong>One process, thirty days,</strong> scope written down before kickoff.</span></li>
+          <li><span class="n">3</span><span><strong>Built on your accounts,</strong> so you own everything.</span></li>
+          <li><span class="n">4</span><span><strong>Handoff with a short guide.</strong> No obligation after. If it helped, we talk about other automations.</span></li>
+        </ol>
+        <a class="btn light" href="https://cal.com/2shifts/30min">Book the 30-minute call</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="wrap about">
+    <h2>Who's behind it</h2>
+    <div>
+      <p>Dustin leads a data automation team at a Fortune 50 company by day. Second Shift is the same work, done after hours, for firms that don't have anyone whose job that is.</p>
+      <p>Based in Dallas. Microsoft 365 and Google Workspace native, comfortable in Clio, MyCase, and whatever else you've ended up with.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="legal">&copy; 2026 Second Shift Automation, LLC</div>
+    <div class="meta">
+      <span>Dallas, Texas</span>
+      <a href="/confidentiality.html">Confidentiality</a>
+      <a href="mailto:dustin@2shifts.com">dustin@2shifts.com</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
