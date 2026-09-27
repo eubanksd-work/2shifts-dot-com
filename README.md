@@ -12,7 +12,6 @@ CNAME               Tells GitHub Pages which domain serves it. Leave as-is.
 .nojekyll           Stops GitHub Pages running the files through Jekyll. Leave as-is.
 fonts/              The three woff2 files the site loads, plus their licenses (see below).
 brand/              Every logo, icon and image asset (see below).
-design-system/      File copy of the design system (tokens, brand book, components, fonts). See its ABOUT.md.
 private/            Not in this repo. Ignored here and kept in its own private repository. See below.
 README.md           This file.
 ```
@@ -25,6 +24,7 @@ This repo is public and GitHub Pages serves the whole root, so anything that sho
 private/documents/       Draft business paperwork: pilot scope, engagement letter, handoff guide, invoice.
 private/backlog.md       What's deliberately not done yet, and why.
 private/memory-bank.md   Working status between sessions. Short-lived; not a record.
+private/design-system/   File copy of the design system (tokens, brand book, components, fonts). See its ABOUT.md.
 ```
 
 Changes under `private/` are committed and pushed from inside `private/`, separately from the site.
@@ -67,7 +67,7 @@ Three files, latin subsets, about 90 KB together:
 | `libre-baskerville-latin-400.woff2` | Libre Baskerville regular |
 | `libre-baskerville-latin-400-italic.woff2` | Libre Baskerville italic, used by the one word in the headline |
 
-These are the same bytes Google Fonts serves for the latin subset. The full-unicode originals are in `design-system/fonts/`; don't swap them in, they are eight times the size for characters the copy never uses. To refresh a file, request it from the Google Fonts `css2` API and take the URL whose `unicode-range` begins `U+0000-00FF`.
+These are the same bytes Google Fonts serves for the latin subset. The full-unicode originals are in `private/design-system/fonts/`; don't swap them in, they are eight times the size for characters the copy never uses. To refresh a file, request it from the Google Fonts `css2` API and take the URL whose `unicode-range` begins `U+0000-00FF`.
 
 Both families are SIL Open Font License 1.1. `fonts/LICENSE-LibreBaskerville.txt` and `fonts/LICENSE-OpenSans.txt` are the license texts, and they have to stay with the font files. That is the whole obligation: keep them in the repo, don't rename the families.
 
@@ -105,18 +105,17 @@ Rules: never redraw the mark, recolor it beyond the two versions, rotate it, or 
 | accent | `#2F4F3E` | one italic word in the headline, links, step numerals, hover |
 | amber | `#F2B35C` | the dot in the mark only |
 
-Full tokens, type scale, spacing, components and the brand book are in `design-system/` (a copy of the Second Shift design system artifact, which is the live version); this table is the subset the site uses.
+Full tokens, type scale, spacing, components and the brand book are in `private/design-system/` (a copy of the Second Shift design system artifact, which is the live version); this table is the subset the site uses.
 
 ## License
 
 Copyright 2026 Second Shift Automation, LLC. All rights reserved.
 
 There is deliberately no `LICENSE` file. A public repo without one is all-rights-reserved by
-default, which is what this repo needs: it holds the mark, the wordmark, the brand book and the
-site copy, and an MIT or Apache file would grant strangers the right to reuse all of it. This
+default, which is what this repo needs: it holds the mark, the wordmark and the site copy, and an MIT or Apache file would grant strangers the right to reuse all of it. This
 section states that intent rather than leaving it implied. Don't add an open-source license
 here without deciding what it would give away.
 
-The fonts are the one exception. Everything in `fonts/` and `design-system/fonts/` is separately
+The fonts are the one exception. Everything in `fonts/` is separately
 licensed under the SIL Open Font License 1.1, and those terms are unaffected by the line above.
 See the Fonts section.
