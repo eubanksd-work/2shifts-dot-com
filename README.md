@@ -13,6 +13,7 @@ CNAME               Tells GitHub Pages which domain serves it. Leave as-is.
 fonts/              The three woff2 files the site loads, plus their licenses (see below).
 brand/              Every logo, icon and image asset (see below).
 private/            Not in this repo. Ignored here and kept in its own private repository. See below.
+AGENTS.md           Rules for AI agents working here. CLAUDE.md only points to it.
 README.md           This file.
 ```
 
@@ -35,7 +36,7 @@ Push to `main`. GitHub Pages (Settings → Pages → source: main, root) publish
 
 `2shifts.com` is verified at the GitHub account level (Settings → Pages → Verified domains), which is what stops anyone else claiming the domain on their own Pages site if this repo is ever renamed or deleted. Keep the `_github-pages-challenge-<account>` TXT record at Namecheap; removing it un-verifies the domain. Turn on Enforce HTTPS once the domain is cut over and the certificate issues.
 
-DNS at Namecheap is half done. Google Workspace mail is live (`MX` to `smtp.google.com`), and the GitHub Pages domain-verification `TXT` record is in place and verified. The web records are still Namecheap's parking defaults, so the domain does not serve this site yet. To cut it over, replace the parked `A` record on `@` with GitHub's four, and repoint the `www` `CNAME` away from `parkingpage.namecheap.com`:
+DNS at Namecheap is half done. Google Workspace mail is live (`MX` to `smtp.google.com`), and the GitHub Pages domain-verification `TXT` record is in place and verified. The web records do not point at GitHub, so the domain does not serve this site yet. Checked 2026-11-15: `@` holds a single `A` record that is not one of GitHub's, and there is no `www` record. To cut it over, replace the `A` record on `@` with GitHub's four and add the `www` `CNAME`:
 
 ```
 A     @     185.199.108.153
